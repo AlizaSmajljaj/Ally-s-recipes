@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Upload Recipe</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+   <style> body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+    }
+    
+    .container {
+        width: 80%;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .form {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .form label {
+        margin-bottom: 5px;
+    }
+    
+    .form input[type="text"],.form textarea,.form select {
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    .form input[type="checkbox"] {
+        margin-right: 5px;
+    }
+    
+    .form button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    .form button:hover {
+        background-color: #45a049;
+    }</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Upload Your Recipe</h1>
+		<form class="form">
+			<label for="recipeName">Recipe Name:</label><br>
+			<input type="text" id="recipeName" name="recipeName" required><br>
+			<label for="recipeDescription">Recipe Description:</label><br>
+			<textarea id="recipeDescription" name="recipeDescription" required></textarea><br>
+			<label for="cookingTime">Cooking Time:</label><br>
+			<input type="text" id="cookingTime" name="cookingTime" required><br>
+			<label for="servings">Servings:</label><br>
+			<input type="text" id="servings" name="servings" required><br>
+			<label for="ingredients">Ingredients:</label><br>
+			<textarea id="ingredients" name="ingredients" required></textarea><br>
+			<label for="instructions">Instructions:</label><br>
+			<textarea id="instructions" name="instructions" required></textarea><br>
+			<label for="difficulty">Difficulty:</label><br>
+			<select id="difficulty" name="difficulty" required>
+				<option value="easy">Easy</option>
+				<option value="medium">Medium</option>
+				<option value="hard">Hard</option>
+			</select><br>
+			<label for="dietaryRestrictions">Dietary Restrictions:</label><br>
+			<input type="checkbox" id="vegetarian" name="dietaryRestrictions[]" value="vegetarian">
+			<label for="vegetarian">Vegetarian</label><br>
+			<input type="checkbox" id="vegan" name="dietaryRestrictions[]" value="vegan">
+			<label for="vegan">Vegan</label><br>
+			<input type="checkbox" id="glutenFree" name="dietaryRestrictions[]" value="glutenFree">
+			<label for="glutenFree">Gluten Free</label><br>
+			<label for="recipeImage">Recipe Image:</label><br>
+			<input type="file" id="recipeImage" name="recipeImage" accept="image/*" required><br>
+			<button type="button" id="uploadButton">Upload Recipe</button>
+		</form>
+	</div>
+	<script>
+		document.getElementById('uploadButton').addEventListener('click', function() {
+			// Get the selected file
+			var file = document.getElementById('recipeImage').files[0];
+			// Create a new FormData object
+			var formData = new FormData();
+			// Append the file to the FormData object
+			formData.append('recipeImage', file);
+			// Send the FormData object to the server using AJAX
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', 'upload.php', true);
+			xhr.send(formData);
+		});
+	</script>
+</body>
+</html>
